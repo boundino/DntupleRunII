@@ -46,6 +46,16 @@ void readMCData(TString tvariable="Dpt", TString tcollsyst="pp_MB", Double_t ymi
   hRatio->SetMarkerSize(1.0);
   //hRatio->Draw("hist e");
   hRatio->Draw("ah hist e");
+  TH1D* hLegend = (TH1D*)hRatio->Clone("hLegend");
+  hLegend->SetLineColor(kAzure+8);
+  hLegend->SetMarkerColor(kAzure+8);
+
+  TLegend* leg = new TLegend(0.20,0.70,0.62,0.86);
+  setleg(leg,0.07);
+  leg->AddEntry(hLegend,"Data / MC gen-matched","lp");
+  leg->AddEntry(hRatio,"MC sideband sub. / MC gen-matched","lp");
+  leg->Draw();
+
   cMCData->SaveAs(Form("plots/%s.eps",inputname.Data()));
 
 }
